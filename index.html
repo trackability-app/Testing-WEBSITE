@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Trackability brings study planning, focus sessions, MCQ tracking, syllabus progress, tasks, revision, and personal tracking into one workspace." />
+  <meta name="theme-color" content="#6466f1" />
+  <meta property="og:title" content="Trackability — Your preparation, tracked." />
+  <meta property="og:description" content="Plan your day. Focus deeply. Track what matters. See your progress." />
+  <title>Trackability — Your preparation, tracked.</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface-2: #f0f2f8;
+      --ink: #11182a;
+      --muted: #68758a;
+      --line: #e2e6ef;
+      --accent: #6366f1;
+      --accent-2: #7774ef;
+      --green: #2dcf9a;
+      --yellow: #f4b62c;
+      --shadow: 0 24px 70px rgba(36, 45, 80, .12);
+      --radius: 28px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(99,102,241,.10), transparent 30rem),
+        radial-gradient(circle at 0% 25%, rgba(45,207,154,.07), transparent 26rem),
+        var(--bg);
+      font-family: "DM Sans", system-ui, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+
+    .nav-wrap {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(247,248,252,.78);
+      border-bottom: 1px solid rgba(226,230,239,.72);
+    }
+    nav {
+      width: min(var(--max), calc(100% - 36px));
+      margin: auto;
+      height: 76px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-family: "Space Grotesk"; font-weight: 700; letter-spacing: .05em; }
+    .brand-mark {
+      width: 39px; height: 39px; border-radius: 13px;
+      display: grid; place-items: center;
+      background: linear-gradient(145deg,#20d8ca,#5c63f4);
+      color: white; font-size: 22px; font-weight: 700;
+      box-shadow: 0 10px 24px rgba(92,99,244,.24);
+    }
+    .brand span { font-size: 18px; }
+    .nav-links { display: flex; align-items: center; gap: 26px; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta, .hero-cta {
+      background: var(--accent); color: white; border: 0;
+      padding: 13px 20px; border-radius: 14px; font-weight: 700;
+      box-shadow: 0 12px 24px rgba(99,102,241,.22);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .nav-cta:hover, .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 30px rgba(99,102,241,.28); }
+
+    .hero {
+      width: min(var(--max), calc(100% - 36px));
+      margin: auto;
+      min-height: 720px;
+      display: grid; grid-template-columns: 1fr .9fr;
+      align-items: center; gap: 60px;
+      padding: 80px 0 70px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px;
+      background: rgba(99,102,241,.08); color: var(--accent);
+      font-size: 12px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase;
+    }
+    h1 {
+      font-family: "Space Grotesk"; font-size: clamp(48px, 7vw, 82px);
+      line-height: .98; letter-spacing: -.055em; margin: 20px 0;
+      max-width: 720px;
+    }
+    .gradient { background: linear-gradient(90deg, #5960ed, #20cda1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy p { max-width: 610px; color: var(--muted); font-size: 19px; line-height: 1.65; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .secondary-cta {
+      border: 1px solid var(--line); background: var(--surface); padding: 13px 20px;
+      border-radius: 14px; font-weight: 700;
+    }
+    .microcopy { color: var(--muted); font-size: 12px; margin-top: 14px; }
+
+    .hero-visual { position: relative; min-height: 570px; display: grid; place-items: center; }
+    .orb { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,.20), rgba(99,102,241,0) 68%); filter: blur(4px); }
+    .phone {
+      position: relative; width: min(340px, 76vw); padding: 9px;
+      background: #151a27; border-radius: 38px;
+      box-shadow: 0 35px 80px rgba(17,24,42,.28);
+      transform: rotate(2.2deg);
+      animation: float 6s ease-in-out infinite;
+    }
+    .phone img { border-radius: 29px; width: 100%; height: 570px; object-fit: cover; object-position: top; background: #fff; }
+    .float-card {
+      position: absolute; background: rgba(255,255,255,.92); backdrop-filter: blur(14px);
+      border: 1px solid rgba(226,230,239,.9); border-radius: 18px; padding: 14px 16px;
+      box-shadow: var(--shadow); font-size: 12px; font-weight: 700;
+    }
+    .fc1 { top: 10%; left: 0; animation: float2 5s ease-in-out infinite; }
+    .fc2 { right: 0; bottom: 17%; animation: float2 5.7s ease-in-out infinite reverse; }
+    .fc3 { right: 4%; top: 20%; }
+    @keyframes float { 0%,100%{transform:rotate(2.2deg) translateY(0)} 50%{transform:rotate(2.2deg) translateY(-12px)} }
+    @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    section { padding: 100px 0; }
+    .section-inner { width: min(var(--max), calc(100% - 36px)); margin: auto; }
+    .section-head { max-width: 760px; margin-bottom: 45px; }
+    .section-kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .12em; font-weight: 800; font-size: 12px; }
+    h2 { font-family: "Space Grotesk"; font-size: clamp(34px, 5vw, 56px); line-height: 1.03; letter-spacing: -.045em; margin: 10px 0 16px; }
+    .section-head p { color: var(--muted); font-size: 17px; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .pill { padding: 10px 13px; border: 1px solid var(--line); background: rgba(255,255,255,.75); border-radius: 999px; font-size: 13px; font-weight: 700; color: #58657a; }
+
+    .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .feature {
+      background: rgba(255,255,255,.84); border: 1px solid var(--line); border-radius: 24px; padding: 24px;
+      min-height: 205px; transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .feature:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .feature-icon { width: 46px; height: 46px; display:grid; place-items:center; border-radius: 15px; background: var(--surface-2); font-size: 21px; margin-bottom: 18px; }
+    .feature h3 { margin: 0 0 8px; font-family: "Space Grotesk"; font-size: 19px; }
+    .feature p { color: var(--muted); font-size: 14px; margin: 0; }
+
+    .showcase {
+      background: #101625; color: white; position: relative; overflow: hidden;
+    }
+    .showcase::before { content:""; position:absolute; inset:-30% -10% auto; height:520px; background: radial-gradient(circle, rgba(99,102,241,.35), transparent 62%); pointer-events:none; }
+    .showcase .section-head p { color: #aab4c7; }
+    .showcase-layout { display:grid; grid-template-columns: .72fr 1.28fr; gap: 50px; align-items:center; position:relative; }
+    .tour-tabs { display:grid; gap: 10px; }
+    .tour-tab {
+      border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.045); color:#aab4c7;
+      padding: 17px; border-radius: 18px; text-align:left; cursor:pointer; transition:.2s;
+    }
+    .tour-tab strong { display:block; color:inherit; font-family:"Space Grotesk"; font-size:17px; margin-bottom:3px; }
+    .tour-tab span { font-size:12px; }
+    .tour-tab.active { color:white; background: rgba(99,102,241,.24); border-color: rgba(124,126,255,.5); }
+    .tour-stage { min-height: 650px; display:grid; place-items:center; }
+    .stage-phone { width:min(350px, 75vw); padding:8px; border-radius:34px; background:#0b0f18; box-shadow: 0 40px 100px rgba(0,0,0,.45); }
+    .stage-phone img { height: 620px; width:100%; object-fit:cover; object-position:top; border-radius:27px; background:white; }
+    .tour-caption { margin-top:18px; text-align:center; color:#aab4c7; font-size:13px; }
+
+    .split { display:grid; grid-template-columns: 1fr 1fr; gap: 65px; align-items:center; }
+    .screen-card {
+      background:white; border:1px solid var(--line); border-radius:32px; padding:12px;
+      box-shadow:var(--shadow); overflow:hidden;
+    }
+    .screen-card img { border-radius:22px; max-height: 650px; object-fit:cover; object-position:top; margin:auto; }
+    .check-list { list-style:none; padding:0; margin:25px 0 0; display:grid; gap:14px; }
+    .check-list li { display:flex; gap:12px; align-items:flex-start; color:#4e5d73; }
+    .check { flex:0 0 25px; height:25px; border-radius:50%; display:grid; place-items:center; background:rgba(45,207,154,.13); color:#15b681; font-weight:900; }
+
+    .stats-band { background: linear-gradient(135deg, #eef0ff, #edf9f5); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .stats { display:grid; grid-template-columns: repeat(4,1fr); gap:16px; }
+    .stat { padding:28px; border:1px solid var(--line); background:rgba(255,255,255,.7); border-radius:22px; }
+    .stat strong { display:block; font-family:"Space Grotesk"; font-size:34px; letter-spacing:-.04em; }
+    .stat span { color:var(--muted); font-size:13px; }
+
+    .gallery { display:grid; grid-template-columns: repeat(4,1fr); gap:14px; }
+    .gallery-card { border:1px solid var(--line); background:white; border-radius:22px; padding:8px; overflow:hidden; box-shadow:0 12px 35px rgba(36,45,80,.06); }
+    .gallery-card img { border-radius:16px; height:440px; width:100%; object-fit:cover; object-position:top; }
+    .gallery-card.wide { grid-column:span 2; }
+    .gallery-card.wide img { height:520px; }
+
+    .cta {
+      width:min(var(--max), calc(100% - 36px)); margin:100px auto; padding:70px;
+      border-radius:36px; background:linear-gradient(135deg,#5e63ee,#7871ef);
+      color:white; position:relative; overflow:hidden; box-shadow:0 30px 80px rgba(99,102,241,.25);
+    }
+    .cta::after { content:""; position:absolute; width:420px;height:420px;border-radius:50%; right:-150px;top:-220px;background:rgba(255,255,255,.10); }
+    .cta h2 { max-width:700px; }
+    .cta p { max-width:650px; color:rgba(255,255,255,.82); }
+    .cta .hero-cta { background:white; color:#5f62ed; box-shadow:none; display:inline-block; margin-top:12px; }
+
+    footer { border-top:1px solid var(--line); padding:38px 0 55px; }
+    .footer-inner { width:min(var(--max), calc(100% - 36px)); margin:auto; display:flex; justify-content:space-between; gap:30px; color:var(--muted); font-size:13px; }
+    .footer-links { display:flex; gap:18px; flex-wrap:wrap; }
+
+    .reveal { opacity:0; transform:translateY(25px); transition:opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    @media (max-width: 900px) {
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr; padding-top:55px; }
+      .hero-visual { min-height:610px; }
+      .feature-grid { grid-template-columns:1fr 1fr; }
+      .showcase-layout, .split { grid-template-columns:1fr; }
+      .tour-tabs { grid-template-columns:1fr 1fr; }
+      .gallery { grid-template-columns:1fr 1fr; }
+      .stats { grid-template-columns:1fr 1fr; }
+      .cta { padding:45px 30px; }
+    }
+    @media (max-width: 560px) {
+      .hero { width:min(var(--max),calc(100% - 28px)); }
+      section { padding:75px 0; }
+      .feature-grid, .gallery, .stats { grid-template-columns:1fr; }
+      .gallery-card.wide { grid-column:span 1; }
+      .gallery-card img, .gallery-card.wide img { height:520px; }
+      .tour-tabs { grid-template-columns:1fr; }
+      .hero-visual { min-height:560px; }
+      .fc1 { left:-5px; }
+      .fc2 { right:-5px; }
+      .fc3 { right:-8px; top:15%; }
+      .footer-inner { flex-direction:column; }
+    }
+  
+    body.dark {
+      --bg: #0b0f18;
+      --surface: #121826;
+      --surface-2: #1a2130;
+      --ink: #f4f6fb;
+      --muted: #9ba7bb;
+      --line: #293244;
+      --accent: #7774ef;
+      --accent-2: #8582ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.35);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(99,102,241,.18), transparent 30rem),
+        radial-gradient(circle at 0% 25%, rgba(45,207,154,.08), transparent 26rem),
+        var(--bg);
+    }
+    body.dark .nav-wrap { background: rgba(11,15,24,.78); border-bottom-color: rgba(41,50,68,.78); }
+    body.dark .pill,
+    body.dark .feature,
+    body.dark .screen-card,
+    body.dark .stat,
+    body.dark .gallery-card,
+    body.dark .secondary-cta,
+    body.dark .float-card {
+      background: rgba(18,24,38,.88);
+      border-color: var(--line);
+    }
+    body.dark .feature p,
+    body.dark .section-head p,
+    body.dark .hero-copy p,
+    body.dark .microcopy,
+    body.dark .check-list li { color: var(--muted); }
+    body.dark .stats-band { background: linear-gradient(135deg,#11172a,#10211e); border-color:var(--line); }
+    body.dark .gallery-card img,
+    body.dark .screen-card img { background:#fff; }
+    body.dark footer { border-color:var(--line); }
+    body.dark .nav-links { color:#9ba7bb; }
+
+    .theme-toggle {
+      width: 44px; height: 44px; border-radius: 14px;
+      border: 1px solid var(--line); background: var(--surface);
+      color: var(--ink); cursor: pointer; display:grid; place-items:center;
+      font-size: 18px; transition: transform .2s ease, background .2s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-2px); }
+    .nav-right { display:flex; align-items:center; gap:10px; }
+    .theme-label { display:none; }
+
+  </style>
+</head>
+<body>
+  <header class="nav-wrap">
+    <nav>
+      <a class="brand" href="#">
+        <span class="brand-mark">T</span><span>TRACKABILITY</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#tour">Product tour</a>
+        <a href="#screens">Screens</a>
+        <a href="#about">Why Trackability</a>
+      </div>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Switch theme" title="Switch theme">☾</button>
+        <a class="nav-cta" href="#get-started">Let's get started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Your preparation, tracked.</span>
+        <h1>Plan it. <span class="gradient">Focus on it.</span> Track it.</h1>
+        <p>
+          Trackability brings your study plan, focus sessions, MCQs, syllabus,
+          revision, tasks and personal progress into one calm workspace.
+        </p>
+        <div class="hero-actions">
+          <a class="hero-cta" href="#get-started">Explore Trackability →</a>
+          <a class="secondary-cta" href="#tour">See how it works</a>
+        </div>
+        <div class="microcopy">Built for serious exam preparation — and flexible enough for any goal.</div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="orb"></div>
+        <div class="float-card fc1">⏱️ Focus sessions + Pomodoro</div>
+        <div class="float-card fc2">📊 Progress you can actually see</div>
+        <div class="float-card fc3">📝 MCQs • Tasks • Revision</div>
+        <div class="phone">
+          <img src="assets/screenshots/05-home-dashboard.jpg" alt="Trackability home dashboard" />
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div class="section-kicker">Everything in one place</div>
+          <h2>One workspace for the parts of preparation that usually live in different apps.</h2>
+          <p>Trackability is built around the way students actually prepare: plan the work, do the work, measure it, and review it.</p>
+          <div class="pill-row">
+            <span class="pill">Study</span><span class="pill">Focus</span><span class="pill">MCQs</span>
+            <span class="pill">Tasks</span><span class="pill">Time blocks</span><span class="pill">Syllabus</span>
+            <span class="pill">Revision</span><span class="pill">Gym</span><span class="pill">Sleep</span>
+            <span class="pill">Nutrition</span><span class="pill">Statistics</span>
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature reveal"><div class="feature-icon">📅</div><h3>Tasks & time blocks</h3><p>Schedule work into real time spans, repeat tasks, add reminders, and see the day at a glance.</p></article>
+          <article class="feature reveal"><div class="feature-icon">⏱️</div><h3>Focus & Pomodoro</h3><p>Study, revision or other sessions with goals, streaks, history and configurable Pomodoro cycles.</p></article>
+          <article class="feature reveal"><div class="feature-icon">📝</div><h3>MCQ tracking</h3><p>Log question activity across sources, see history, streaks and daily totals, and keep practice visible.</p></article>
+          <article class="feature reveal"><div class="feature-icon">📚</div><h3>Syllabus & revision</h3><p>Mark chapter status, identify revision topics and turn revision or MCQ chapters directly into tasks.</p></article>
+          <article class="feature reveal"><div class="feature-icon">📈</div><h3>Progress & statistics</h3><p>Turn daily activity into a longer-term picture of how consistently you are preparing.</p></article>
+          <article class="feature reveal"><div class="feature-icon">🏋️</div><h3>Personal tracking</h3><p>Keep gym, sleep, nutrition and other routines alongside your preparation instead of losing them elsewhere.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tour" class="showcase">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div class="section-kicker">Interactive product tour</div>
+          <h2>See the workflow, not a collection of marketing mockups.</h2>
+          <p>These are real Trackability screens. Use the tour to see how planning, focusing, studying and tracking connect.</p>
+        </div>
+
+        <div class="showcase-layout">
+          <div class="tour-tabs">
+            <button class="tour-tab active" data-img="05-home-dashboard.jpg" data-caption="The home dashboard brings the day's key signals together.">
+              <strong>01 · Home</strong><span>Countdown, focus, MCQs and today's tasks.</span>
+            </button>
+            <button class="tour-tab" data-img="03-time-blocks.jpg" data-caption="Time blocks make the schedule feel like an actual day rather than a list.">
+              <strong>02 · Time blocks</strong><span>See exactly where each task sits in the day.</span>
+            </button>
+            <button class="tour-tab" data-img="17-focus-timer.jpg" data-caption="Start a focused session and optionally connect it to a subject and chapter.">
+              <strong>03 · Focus</strong><span>Study, revision and other focus sessions.</span>
+            </button>
+            <button class="tour-tab" data-img="12-syllabus.jpg" data-caption="Syllabus status stays visible at chapter level.">
+              <strong>04 · Syllabus</strong><span>Track chapters and completion states.</span>
+            </button>
+            <button class="tour-tab" data-img="18-mcq-hub.jpg" data-caption="MCQ-marked chapters can flow directly into your task schedule.">
+              <strong>05 · MCQ hub</strong><span>Turn question practice into planned work.</span>
+            </button>
+            <button class="tour-tab" data-img="19-nutrition-ledger.jpg" data-caption="Personal metrics can live beside your study data.">
+              <strong>06 · Tracker</strong><span>Nutrition and other personal tracking.</span>
+            </button>
+          </div>
+
+          <div class="tour-stage">
+            <div>
+              <div class="stage-phone">
+                <img id="tour-image" src="assets/screenshots/05-home-dashboard.jpg" alt="Trackability product tour" />
+              </div>
+              <div class="tour-caption" id="tour-caption">The home dashboard brings the day's key signals together.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-inner split">
+        <div class="screen-card reveal">
+          <img src="assets/screenshots/02-task-hub.jpg" alt="Trackability task and schedule hub" />
+        </div>
+        <div class="reveal">
+          <div class="section-kicker">Plan the work</div>
+          <h2>From “I need to study” to an actual schedule.</h2>
+          <p style="color:var(--muted);font-size:17px">
+            Add a task, choose what it connects to, set a date, repeat it when needed,
+            add a time span and reminder — then see it on your schedule.
+          </p>
+          <ul class="check-list">
+            <li><span class="check">✓</span><span>Flexible task types for study and personal routines.</span></li>
+            <li><span class="check">✓</span><span>Optional time spans turn tasks into visible calendar blocks.</span></li>
+            <li><span class="check">✓</span><span>Daily, weekly, monthly and custom repetition.</span></li>
+            <li><span class="check">✓</span><span>Connect tasks with subjects, chapters or trackers where useful.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-band">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div class="section-kicker">A preparation system</div>
+          <h2>Make progress visible.</h2>
+          <p>Trackability is designed to make small daily actions accumulate into a picture you can understand.</p>
+        </div>
+        <div class="stats">
+          <div class="stat reveal"><strong>Focus</strong><span>Sessions, goals, streaks and history.</span></div>
+          <div class="stat reveal"><strong>MCQs</strong><span>Daily activity, history and practice hubs.</span></div>
+          <div class="stat reveal"><strong>Plan</strong><span>Tasks, repeats, reminders and time blocks.</span></div>
+          <div class="stat reveal"><strong>Track</strong><span>Syllabus, revision and personal metrics.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screens">
+      <div class="section-inner">
+        <div class="section-head reveal">
+          <div class="section-kicker">Inside Trackability</div>
+          <h2>A closer look at the actual interface.</h2>
+          <p>Use real product screens throughout the website so visitors can understand the product before they ever download it.</p>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-card wide reveal"><img src="assets/screenshots/03-time-blocks.jpg" alt="Time block schedule" /></div>
+          <div class="gallery-card reveal"><img src="assets/screenshots/17-focus-timer.jpg" alt="Focus timer" /></div>
+          <div class="gallery-card reveal"><img src="assets/screenshots/11-revision-hub.jpg" alt="Revision hub" /></div>
+          <div class="gallery-card reveal"><img src="assets/screenshots/13-mcq-history.jpg" alt="MCQ solved history" /></div>
+          <div class="gallery-card reveal"><img src="assets/screenshots/19-nutrition-ledger.jpg" alt="Nutrition ledger" /></div>
+          <div class="gallery-card reveal"><img src="assets/screenshots/20-mistake-review-task.jpg" alt="Mistake book task" /></div>
+          <div class="gallery-card reveal"><img src="assets/screenshots/16-pomodoro.jpg" alt="Pomodoro setup" /></div>
+          <div class="gallery-card wide reveal"><img src="assets/screenshots/12-syllabus.jpg" alt="Syllabus tracking" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-inner split">
+        <div class="reveal">
+          <div class="section-kicker">Why Trackability</div>
+          <h2>Preparation is more than a timer.</h2>
+          <p style="color:var(--muted);font-size:18px">
+            Studying is one part of the system. Planning what to do, deciding when to do it,
+            recording what you actually did, revising weak areas and keeping your routine on track
+            are all part of the same process.
+          </p>
+          <p style="color:var(--muted)">
+            Trackability is being built around that complete loop — without forcing you to jump
+            between a planner, a timer, a question counter and separate personal trackers.
+          </p>
+        </div>
+        <div class="screen-card reveal">
+          <img src="assets/screenshots/15-focus-goals.jpg" alt="Focus goals and streaks" />
+        </div>
+      </div>
+    </section>
+
+    <div class="cta" id="get-started">
+      <div class="section-kicker" style="color:#dcdcff">Start tracking</div>
+      <h2>Your preparation deserves a system.</h2>
+      <p>Explore Trackability and see how the workflow fits together. The current button opens the live demo; when the mobile app launches, this destination can become your Play Store / App Store link.</p>
+      <!-- Change ONLY this href when the mobile app launches. -->
+      <a class="hero-cta" href="https://trackability-app.github.io/Trackability/" target="_blank" rel="noopener">Let’s get started →</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 Trackability. Built for focused preparation.</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+        <a href="https://trackability-app.github.io/Trackability/" target="_blank" rel="noopener">Live demo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+    // Light / dark mode with local persistence
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('trackability-theme');
+    if (savedTheme === 'dark') document.body.classList.add('dark');
+
+    function updateThemeIcon() {
+      const dark = document.body.classList.contains('dark');
+      themeToggle.textContent = dark ? '☀' : '☾';
+      themeToggle.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      themeToggle.setAttribute('aria-label', themeToggle.title);
+    }
+    updateThemeIcon();
+
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem(
+        'trackability-theme',
+        document.body.classList.contains('dark') ? 'dark' : 'light'
+      );
+      updateThemeIcon();
+    });
+
+    // Product-tour image switcher
+    const tabs = document.querySelectorAll('.tour-tab');
+    const tourImage = document.getElementById('tour-image');
+    const tourCaption = document.getElementById('tour-caption');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        tourImage.style.opacity = '0';
+        setTimeout(() => {
+          tourImage.src = 'assets/screenshots/' + tab.dataset.img;
+          tourCaption.textContent = tab.dataset.caption;
+          tourImage.style.opacity = '1';
+        }, 160);
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
