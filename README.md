@@ -5,7 +5,7 @@ Pre-launch marketing website for Trackability.
 ## Structure
 
 - `index.html` — complete landing page
-- `assets/screenshots/` — the 20 real Trackability UI screenshots supplied by the founder
+- `` — the 20 real Trackability UI screenshots supplied by the founder
 
 ## Current workspace
 
